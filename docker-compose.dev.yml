@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  server:
+    container_name: baucua_server_dev
+    image: baucua_server_dev:latest
+    build:
+      context: .
+      target: development
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./:/app
+      - /app/node_modules

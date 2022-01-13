@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  server:
+    container_name: baucua_server_prod
+    image: baucua_server_prod:latest
+    build:
+      context: .
+      target: production
+      dockerfile: ./Dockerfile
