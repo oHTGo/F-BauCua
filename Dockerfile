@@ -7,6 +7,7 @@ COPY package.json ./
 RUN yarn install
 
 COPY . .
+RUN yarn build
 CMD yarn start:dev
 
 # Production
@@ -14,6 +15,11 @@ FROM node:14-alpine as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
+
+ARG PM2_PUBLIC_KEY
+ENV PM2_PUBLIC_KEY ${PM2_PUBLIC_KEY}
+ARG PM2_SECRET_KEY
+ENV PM2_SECRET_KEY ${PM2_SECRET_KEY}
 
 WORKDIR /app
 

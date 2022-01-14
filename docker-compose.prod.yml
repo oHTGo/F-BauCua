@@ -8,3 +8,6 @@ services:
       context: .
       target: production
       dockerfile: ./Dockerfile
+      args:
+        PM2_PUBLIC_KEY: ${PM2_PUBLIC_KEY}
+        PM2_SECRET_KEY: ${PM2_SECRET_KEY}
