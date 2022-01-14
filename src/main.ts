@@ -5,6 +5,7 @@ import { AppModule } from './app.module';
 import envConfig from './app/envConfig';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import { RedisIoAdapter } from './RedisIoAdapter';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -13,6 +14,8 @@ async function bootstrap(): Promise<void> {
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   app.use(helmet());
+
+  app.useWebSocketAdapter(new RedisIoAdapter(app));
 
   if (envConfig().NODE_ENV !== 'production') {
     const config = new DocumentBuilder()

@@ -11,6 +11,9 @@ interface IEnvConfig {
   // Database
   DB_URI: string;
   DB_OPTIONS: string;
+
+  // Redis
+  REDIS_URI: string;
 }
 
 export default (): IEnvConfig => ({
@@ -23,4 +26,6 @@ export default (): IEnvConfig => ({
 
   DB_URI: process.env.DB_URI,
   DB_OPTIONS: process.env.DB_OPTIONS,
+
+  REDIS_URI: process.env.REDIS_URI,
 });

@@ -15,5 +15,10 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - baucua/:/data/db
+  redis:
+    image: redis:6.0-alpine
+    container_name: baucua_redis
+    ports:
+      - '6379:6379'
 volumes:
   baucua:
