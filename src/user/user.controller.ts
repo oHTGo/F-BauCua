@@ -20,11 +20,12 @@ export class UserController {
   @ApiOkResponse(DocsResponser.sendOkItem(GetProfileResponse))
   async getProfile(@CurrentUser() user: ICurrentUser) {
     const userDB = await this.userService.findById(user.id);
-    const { _id, email, name, coin } = userDB;
+    const { _id, email, name, role, coin } = userDB;
     const response: GetProfileResponse = {
       _id,
       name,
       email,
+      role,
       coin,
     };
 

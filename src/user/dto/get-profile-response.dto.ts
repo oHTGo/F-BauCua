@@ -11,5 +11,8 @@ export class GetProfileResponse {
   name: string;
 
   @ApiProperty()
+  role: string;
+
+  @ApiProperty()
   coin: number;
 }
