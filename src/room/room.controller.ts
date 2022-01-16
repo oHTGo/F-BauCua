@@ -18,6 +18,7 @@ import { UpdateRoomDto } from './dto/update-room.dto';
 import { RoomGateway } from './room.gateway';
 import { RoomService } from './room.service';
 import { Room } from './schemas/room.schema';
+import { GetRankResponse } from './response/get-rank.response';
 
 @Controller('room')
 @UseGuards(RolesGuard)
@@ -147,20 +148,36 @@ export class RoomController {
     return ApiResponse.send('Roll successfully');
   }
 
-  @Post(':id/reset-and-get-rank')
+  @Post(':id/reset')
   @Roles(Role.Admin)
-  @ApiOperation({ summary: 'Reset room and get rank' })
+  @ApiOperation({ summary: 'Reset room' })
   @ApiOkResponse(DocsResponser.sendOk())
   async reset(@Param() { id }: IdParamDto) {
+    const roomDB = await this.roomService.findOneById(id);
+    if (!roomDB) throw new NotFoundException('Room does not exist');
+
+    await this.roomService.resetRoom(id);
+    return ApiResponse.send('Reset room successfully');
+  }
+
+  @Post(':id/get-rank')
+  @Roles(Role.Admin)
+  @ApiOperation({ summary: 'Get rank' })
+  @ApiOkResponse(DocsResponser.sendOk())
+  async getRank(@Param() { id }: IdParamDto) {
     const roomDB = await this.roomService.findOneById(id);
     if (!roomDB) throw new NotFoundException('Room does not exist');
 
     const { members } = roomDB;
     const users = await this.userService.getTop10CoinByIds(members);
 
-    await this.roomService.resetRoom(id);
-
-    return ApiResponse.send('Reset room and get rank successfully', users);
+    const response: GetRankResponse[] = users.map((user) => ({
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      coin: user.coin,
+    }));
+    return ApiResponse.send('Get rank successfully', response);
   }
   // === </Admin>
 
