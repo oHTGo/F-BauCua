@@ -32,13 +32,22 @@ export class RoomController {
   @Roles(Role.Admin)
   @ApiOperation({ summary: 'Get all rooms' })
   @ApiOkResponse(DocsResponser.sendOkItems(GetAllRoomsResponse))
-  async getAll() {
+  async getAll(@CurrentUser() user: ICurrentUser) {
     const rooms = await this.roomService.getAll();
 
-    const response: GetAllRoomsResponse[] = rooms.map((room) => ({
-      _id: room._id,
-      name: room.name,
-    }));
+    let response: GetAllRoomsResponse[];
+
+    if (user.role === Role.Admin) {
+      response = rooms.map((room) => ({
+        _id: room._id,
+        name: room.name,
+      }));
+    } else if (user.role === Role.User) {
+      response = rooms.map((room) => ({
+        name: room.name,
+      }));
+    }
+
     return ApiResponse.send<GetAllRoomsResponse[]>('Get all rooms successfully', response);
   }
 
