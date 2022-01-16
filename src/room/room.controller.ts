@@ -11,8 +11,8 @@ import { Role } from '../user/enums/Role.enum';
 import { UserService } from '../user/user.service';
 import { BetDto } from './dto/bet.dto';
 import { CreateRoomDto } from './dto/create-room.dto';
-import { GetAllRoomsResponse } from './dto/get-all-rooms-response.dto';
-import { GetRoomResponse } from './dto/get-room-response.dto';
+import { GetAllRoomsResponse } from './response/get-all-rooms.response';
+import { GetRoomResponse } from './response/get-room.response';
 import { IdParamDto } from './dto/id-param.dto';
 import { UpdateRoomDto } from './dto/update-room.dto';
 import { RoomGateway } from './room.gateway';
@@ -116,7 +116,7 @@ export class RoomController {
     if (!roomDB) throw new NotFoundException('Room does not exist');
 
     const rollResult = await this.roomService.roll(id);
-    await this.roomGateway.sendMessage({ room: id, rollResult });
+    await this.roomGateway.sendRoll({ room: id, rollResult });
 
     const rollResultMap = new Map<number, number>();
     for (const roll of rollResult) {
@@ -204,6 +204,7 @@ export class RoomController {
     betResult.set(user.id, bet);
     await this.roomService.saveBet(id, betResult);
     await this.userService.updateCoin(user.id, userDB.coin - totalCoin);
+    this.roomGateway.sendBet({ user: user.email, bet: bet });
 
     return ApiResponse.send('Bet successfully');
   }

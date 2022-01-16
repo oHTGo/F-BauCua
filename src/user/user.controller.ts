@@ -5,7 +5,7 @@ import { CurrentUser } from '../app/decorators/user.decorator';
 import { DocsResponser } from '../app/docs/DocsResponser';
 import { ICurrentUser } from '../app/interfaces/ICurrentUser.interface';
 import { ResponseServer } from '../app/responseServer';
-import { GetProfileResponse } from './dto/get-profile-response.dto';
+import { GetProfileResponse } from './response/get-profile.response';
 import { UserService } from './user.service';
 
 @Controller('user')
