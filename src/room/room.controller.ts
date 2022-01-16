@@ -27,9 +27,9 @@ import { Room } from './schemas/room.schema';
 export class RoomController {
   constructor(private readonly roomGateway: RoomGateway, private readonly roomService: RoomService, private readonly userService: UserService) {}
 
-  // === <Admin>
+  // === <Admin or User />
   @Get()
-  @Roles(Role.Admin)
+  @Roles(Role.Admin, Role.User)
   @ApiOperation({ summary: 'Get all rooms' })
   @ApiOkResponse(DocsResponser.sendOkItems(GetAllRoomsResponse))
   async getAll(@CurrentUser() user: ICurrentUser) {
@@ -51,6 +51,7 @@ export class RoomController {
     return ApiResponse.send<GetAllRoomsResponse[]>('Get all rooms successfully', response);
   }
 
+  // === <Admin>
   @Get(':id')
   @Roles(Role.Admin)
   @ApiOperation({ summary: 'Get a room' })
