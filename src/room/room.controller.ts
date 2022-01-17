@@ -19,6 +19,7 @@ import { RoomGateway } from './room.gateway';
 import { RoomService } from './room.service';
 import { Room } from './schemas/room.schema';
 import { GetRankResponse } from './response/get-rank.response';
+import { CheckStatusBetResponse } from './response/check-status-bet.response';
 
 @Controller('room')
 @UseGuards(RolesGuard)
@@ -204,6 +205,24 @@ export class RoomController {
     await this.roomService.join(id, user.id);
 
     return ApiResponse.send('Join room successfully');
+  }
+
+  @Get(':id/bet')
+  @Roles(Role.User)
+  @ApiOperation({ summary: 'Check status bet' })
+  @ApiOkResponse(DocsResponser.sendOk())
+  async checkStatusBet(@CurrentUser() user: ICurrentUser, @Param() { id }: IdParamDto) {
+    const roomDB = await this.roomService.findOneById(id);
+    if (!roomDB) throw new NotFoundException('Room does not exist');
+
+    const { betResult } = roomDB;
+    const checked = betResult.has(user.id);
+
+    const response: CheckStatusBetResponse = {
+      status: checked,
+    };
+
+    return ApiResponse.send('Check status bet successfully', response);
   }
 
   @Post(':id/bet')
