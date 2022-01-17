@@ -156,6 +156,11 @@ export class RoomController {
     const roomDB = await this.roomService.findOneById(id);
     if (!roomDB) throw new NotFoundException('Room does not exist');
 
+    const { members } = roomDB;
+    members.forEach((member) => {
+      this.userService.resetCoin(member);
+    });
+
     await this.roomService.resetRoom(id);
     return ApiResponse.send('Reset room successfully');
   }
