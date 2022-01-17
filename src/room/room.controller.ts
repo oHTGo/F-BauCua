@@ -196,7 +196,10 @@ export class RoomController {
     if (!roomDB) throw new NotFoundException('Room does not exist');
 
     const existed = await this.roomService.checkUserInAllRooms(user.id);
-    if (existed) throw new BadRequestException('User has joined a room before');
+    if (existed) {
+      if (existed.id !== id) throw new BadRequestException('User has joined a room before');
+      else return ApiResponse.send('Join room successfully');
+    }
 
     await this.roomService.join(id, user.id);
 
