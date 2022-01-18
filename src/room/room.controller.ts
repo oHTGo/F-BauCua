@@ -54,7 +54,7 @@ export class RoomController {
   }
 
   @Get(':id')
-  @Roles(Role.Admin)
+  @Roles(Role.Admin, Role.User)
   @ApiOperation({ summary: 'Get a room' })
   @ApiOkResponse(DocsResponser.sendOkItem(GetAllRoomsResponse))
   async getById(@Param() { id }: IdParamDto, @CurrentUser() user: ICurrentUser) {
