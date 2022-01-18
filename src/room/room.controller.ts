@@ -248,7 +248,7 @@ export class RoomController {
     betResult.set(user.id, bet);
     await this.roomService.saveBet(id, betResult);
     await this.userService.updateCoin(user.id, userDB.coin - totalCoin);
-    this.roomGateway.sendBet({ user: user.email, bet: bet });
+    this.roomGateway.sendBet({ user: user.email, bet: bet, room: roomDB.id });
 
     return ApiResponse.send('Bet successfully');
   }
