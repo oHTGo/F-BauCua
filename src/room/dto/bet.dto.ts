@@ -5,7 +5,6 @@ export class BetDto {
   @IsNumber({}, { each: true })
   @ArrayMinSize(6)
   @ArrayMaxSize(6)
-  @IsPositive({ each: true })
   @IsInt({ each: true })
   @ApiProperty({
     type: [Number],
