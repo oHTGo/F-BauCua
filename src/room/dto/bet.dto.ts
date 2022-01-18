@@ -1,10 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMaxSize, ArrayMinSize, IsNumber } from 'class-validator';
+import { ArrayMaxSize, ArrayMinSize, IsInt, IsNumber, IsPositive } from 'class-validator';
 
 export class BetDto {
   @IsNumber({}, { each: true })
   @ArrayMinSize(6)
   @ArrayMaxSize(6)
+  @IsPositive({ each: true })
+  @IsInt({ each: true })
   @ApiProperty({
     type: [Number],
     description: 'An array of 6 elements corresponding to 6 animals in the game, the number of each element represents the number of coins bet',
