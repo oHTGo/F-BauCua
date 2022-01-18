@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMaxSize, ArrayMinSize, IsInt, IsNumber, IsPositive } from 'class-validator';
+import { ArrayMaxSize, ArrayMinSize, IsInt, IsNumber } from 'class-validator';
 
 export class BetDto {
   @IsNumber({}, { each: true })
