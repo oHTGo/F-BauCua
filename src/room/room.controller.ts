@@ -29,7 +29,7 @@ import { CheckStatusBetResponse } from './response/check-status-bet.response';
 export class RoomController {
   constructor(private readonly roomGateway: RoomGateway, private readonly roomService: RoomService, private readonly userService: UserService) {}
 
-  // === <Admin or User />
+  // === <Admin or User>
   @Get()
   @Roles(Role.Admin, Role.User)
   @ApiOperation({ summary: 'Get all rooms' })
@@ -53,23 +53,32 @@ export class RoomController {
     return ApiResponse.send<GetAllRoomsResponse[]>('Get all rooms successfully', response);
   }
 
-  // === <Admin>
   @Get(':id')
   @Roles(Role.Admin)
   @ApiOperation({ summary: 'Get a room' })
   @ApiOkResponse(DocsResponser.sendOkItem(GetAllRoomsResponse))
-  async getById(@Param() { id }: IdParamDto) {
+  async getById(@Param() { id }: IdParamDto, @CurrentUser() user: ICurrentUser) {
     const room = await this.roomService.findOneById(id);
     if (!room) throw new NotFoundException('Room does not exist');
 
     const { _id, name } = room;
-    const response: GetRoomResponse = {
-      _id,
-      name,
-    };
-    return ApiResponse.send<GetRoomResponse>('Get all rooms successfully', response);
-  }
+    let response: GetRoomResponse;
 
+    if (user.role === Role.Admin) {
+      response = {
+        _id,
+        name,
+      };
+    } else if (user.role === Role.User) {
+      response = {
+        name,
+      };
+    }
+    return ApiResponse.send<GetRoomResponse>('Get a room successfully', response);
+  }
+  // === </Admin or User>
+
+  // === <Admin>
   @Post()
   @Roles(Role.Admin)
   @ApiOperation({ summary: 'Create a room' })
