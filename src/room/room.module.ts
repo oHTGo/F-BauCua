@@ -12,6 +12,7 @@ import { UserModule } from '../user/user.module';
   imports: [MongooseModule.forFeature([{ name: Room.name, schema: RoomSchema }]), UserModule, AuthenticationModule],
   providers: [RoomGateway, RoomService],
   controllers: [RoomController],
+  exports: [RoomService],
 })
 export class RoomModule {
   configure(consumer: MiddlewareConsumer) {

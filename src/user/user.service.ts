@@ -8,6 +8,10 @@ import { User, UserDocument } from './schemas/user.schema';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
+  async getAll() {
+    return this.userModel.find();
+  }
+
   async getTop10CoinByIds(ids: string[]) {
     return this.userModel
       .find({ _id: { $in: ids } })
