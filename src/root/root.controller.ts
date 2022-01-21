@@ -1,4 +1,7 @@
 import { Controller, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiExtraModels, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { DocsResponser } from 'src/app/docs/DocsResponser';
+import { ResponseServer } from 'src/app/responseServer';
 import { ApiResponse } from '../app/apiResponse';
 import { Roles } from '../app/decorators/role.decorator';
 import envConfig from '../app/envConfig';
@@ -9,10 +12,15 @@ import { UserService } from '../user/user.service';
 
 @Controller('root')
 @UseGuards(RolesGuard)
+@ApiBearerAuth()
+@ApiTags('root')
+@ApiExtraModels(ResponseServer)
 export class RootController {
   constructor(private readonly userService: UserService, private readonly roomService: RoomService) {}
 
   @Post('reset-all')
+  @ApiOperation({ summary: 'Reset all coin users & rooms' })
+  @ApiOkResponse(DocsResponser.sendOk())
   @Roles(Role.Root)
   async resetAll() {
     const users = await this.userService.getAll();
