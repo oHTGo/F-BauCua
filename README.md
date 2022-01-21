@@ -19,6 +19,14 @@ This is an image from Firebase Analytics of the web in production.
 - PM2: process manager with cluster and remote monitor
 - Firebase: used to login and deploy to the frontend
 
+## Features
+
+- Use school email to login via Google
+- The game is divided into many rooms, each room will have a certain group of players
+- Players will initially be given 200 coins to bet, winning or losing is calculated according to the rules of this game
+- After the players finished betting, the admin can roll the dice, then calculate the winnings of the players
+- After the end of 1 round, the admin resets the room, the players in the room will be reset to 200 to start playing again
+
 ## Installation
 
 Backend requires [Docker](https://www.docker.com/) to run.
