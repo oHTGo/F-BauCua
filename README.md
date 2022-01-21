@@ -1,5 +1,23 @@
 # F-BauCua
 
+This repository is a backend for playing the game **Bầu Cua Tôm Cá** (gourd crab shrimp fish), a Tet event of FPT University with the participation of students from different regions of Vietnam.
+Here is the frontend repository link: [GitHub](https://github.com/phuong74200/bau-cua).
+
+## Images
+
+This is an image from Firebase Analytics of the web in production.
+![](./.github/images/firebase-analytics.png)
+
+## Tech Stack
+
+- NestJS: A progressive Node.js framework to create API
+- Class Validator: validate all params, queries, body of the request
+- SocketIO: create realtime for clients
+- Redis: used for SocketIO can recognize clients when running in different clusters
+- Mongoose: used to connect to MongoDB
+- PM2: process manager with cluster and remote monitor
+- Firebase: used to login and deploy to the frontend
+
 ## Installation
 
 Backend requires [Docker](https://www.docker.com/) to run.
