@@ -9,6 +9,9 @@ Here is the frontend repository link: [GitHub](https://github.com/phuong74200/ba
 This is an image from Firebase Analytics of the web in production.
 ![](./.github/images/firebase-analytics.png)
 
+This is a live stream of the university
+![](./.github/images/live-stream.jpg)
+
 ## Tech Stack
 
 - NestJS: A progressive Node.js framework to create API
