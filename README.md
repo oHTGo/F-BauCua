@@ -6,8 +6,9 @@ Here is the frontend repository link: [GitHub](https://github.com/phuong74200/ba
 
 ## Images
 
-This is an image from Firebase Analytics of the web in production.
-![](./.github/images/firebase-analytics.png)
+This is a picture of users in real-time and all users accessing the site through Firebase Analytics in production.
+![](./.github/images/realtime-users.png)
+![](./.github/images/all-users.png)
 
 This is a live stream image at the university.
 ![](./.github/images/live-stream.jpg)
