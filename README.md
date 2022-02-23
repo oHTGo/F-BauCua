@@ -1,6 +1,6 @@
 # F-BauCua
 
-This repository is a backend for playing the game **Bầu Cua Tôm Cá** (gourd crab shrimp fish), a Tet event of FPT University with the participation of students from different regions of Vietnam.
+This repository is a backend for playing the game **Bầu Cua Tôm Cá** (gourd crab shrimp fish), a Tet event of FPT University with the participation of students from different regions of Vietnam, only play for 2 hours.
 
 Here is the frontend repository link: [GitHub](https://github.com/phuong74200/bau-cua).
 
@@ -8,7 +8,7 @@ Here is the frontend repository link: [GitHub](https://github.com/phuong74200/ba
 
 This is a picture of users in real-time and all users accessing the site through Firebase Analytics in production.
 ![](./.github/images/realtime-users.png)
-![](./.github/images/all-users.png)
+![](./.github/images/all-users.jpg)
 
 This is a live stream image at the university.
 ![](./.github/images/live-stream.jpg)
